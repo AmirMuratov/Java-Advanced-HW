@@ -13,6 +13,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="Commander">
+    <leftPanel />
+    <rightPanel />
+    <splitter proportion="0.5" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -25,30 +30,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23357664" vertical-offset="9" max-vertical-offset="495">
-              <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="645">
+              <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#384#393#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IterativeParallelism.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IterativeParallelism.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/IterativeParallelism.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="180" max-vertical-offset="2130">
-              <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.39151713" vertical-offset="1560" max-vertical-offset="3090">
+              <caret line="124" column="35" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#738#739#0" expanded="true" />
-                <element signature="e#796#797#0" expanded="true" />
-                <element signature="e#831#832#0" expanded="true" />
-                <element signature="e#868#869#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -92,6 +92,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -130,7 +131,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -142,8 +142,8 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../java-advanced-2015/lib/quickcheck-0.6.jar!/" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../java-advanced-2015/lib/quickcheck-0.6.jar!/" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="OverrideImplement.combined" value="true" />
@@ -315,32 +315,32 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32924962" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25302115" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="true" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="true" weight="0.4003021" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26359516" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15467075" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32924962" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -370,11 +370,53 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/stream/ReferencePipeline.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3316583" vertical-offset="6348" max-vertical-offset="8625">
-          <caret line="514" column="0" selection-start-line="514" selection-start-column="0" selection-end-line="514" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="645">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/IterativeParallelism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3150">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="495">
+          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/IterativeParallelism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2130">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -384,21 +426,54 @@
           <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <element signature="e#796#797#0" expanded="true" />
-            <element signature="e#831#832#0" expanded="true" />
-            <element signature="e#868#869#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/stream/ReferencePipeline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3316583" vertical-offset="6348" max-vertical-offset="8625">
+          <caret line="514" column="0" selection-start-line="514" selection-start-column="0" selection-end-line="514" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/util/function/Function.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="238" max-vertical-offset="1215">
+          <caret line="51" column="18" selection-start-line="51" selection-start-column="18" selection-end-line="51" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/Override.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7080292" vertical-offset="114" max-vertical-offset="525">
+          <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23357664" vertical-offset="9" max-vertical-offset="495">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="645">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#384#393#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/Math.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="1033" max-vertical-offset="34260">
+          <caret line="104" column="19" selection-start-line="104" selection-start-column="19" selection-end-line="104" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/ifmo/ctddev/muratov/iterativeparallelism/IterativeParallelism.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.39151713" vertical-offset="1560" max-vertical-offset="3090">
+          <caret line="124" column="35" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -443,7 +518,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.8</last-edited>
+          <last-edited>1.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

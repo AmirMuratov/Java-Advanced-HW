@@ -9,19 +9,29 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         IterativeParallelism p = new IterativeParallelism();
-        ArrayList<Integer> a = new ArrayList<Integer>();
+        ArrayList<Integer> a = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            a.add(i, i);
+            a.add(i);
         }
-        System.out.print(p.concat(3, a));
-/*        ArrayList<Integer> mx = p.map(3, a, new Function<Integer, Integer>() {
+        a.add(23);
+        //System.out.print(p.concat(3, a) + "\n");
+
+        Integer mx = p.minimum(3, a, new Comparator<Integer>() {
             @Override
-            public Integer apply(Integer integer) {
-                return integer * integer;
+            public int compare(Integer o1, Integer o2) {
+                if (o1 == null && o2 == null) {
+                    return 0;
+                }
+                if (o2 == null) {
+                    return 1;
+                }
+                if (o1 == null) {
+                    return -1;
+                }
+                return o1.compareTo(o2);
             }
         });
-        for (int i = 0; i < mx.size(); i++) {
-            System.out.print(mx.get(i) + "\n");
-        }*/
+        System.out.print(mx);
+
     }
 }

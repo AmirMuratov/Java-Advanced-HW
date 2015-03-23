@@ -1,0 +1,4 @@
+#!/bin/bash
+rm -rf doc
+mkdir doc
+javadoc src/ru/ifmo/ctddev/muratov/iterativeparallelism/IterativeParallelism.java -d doc -cp tests/java:.lib/commons-compress-1.4.1.jar -private -linkoffline http://docs.oracle.com/javase/8/docs/api/ http://docs.oracle.com/javase/8/docs/api/
