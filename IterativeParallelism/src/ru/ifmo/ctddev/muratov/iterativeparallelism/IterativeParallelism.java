@@ -129,7 +129,7 @@ public class IterativeParallelism implements ListIP {
     public <T> boolean any(int n, List<? extends T> list, Predicate<? super T> predicate) throws InterruptedException {
         Function<List<? extends T>, Boolean> any = data -> data.stream().anyMatch(predicate);
         List<Boolean> result = count(n, list, any);
-        return result.stream().reduce(false, (a, b) -> a | b);
+        return result.stream().anyMatch(Predicate.isEqual(true));
     }
 
 
