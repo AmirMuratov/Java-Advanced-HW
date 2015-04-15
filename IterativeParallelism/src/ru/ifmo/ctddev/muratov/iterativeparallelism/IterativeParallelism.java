@@ -1,6 +1,7 @@
 package ru.ifmo.ctddev.muratov.iterativeparallelism;
 
 import info.kgeorgiy.java.advanced.concurrent.ListIP;
+import info.kgeorgiy.java.advanced.mapper.ParallelMapper;
 
 
 import java.util.ArrayList;
@@ -15,6 +16,17 @@ import java.util.stream.Collectors;
  */
 public class IterativeParallelism implements ListIP {
 
+    boolean hasMapper;
+    ParallelMapper mapper;
+
+    public IterativeParallelism(ParallelMapper mapper) {
+        hasMapper = true;
+        this.mapper = mapper;
+    }
+
+    public IterativeParallelism() {
+        hasMapper = false;
+    }
 
     private class RunAndSave<T, K> implements Runnable {
 
@@ -47,20 +59,28 @@ public class IterativeParallelism implements ListIP {
         }
     }
 
-
     private <T, K> List<K> count(int n, List<? extends T> list, Function<List<? extends T>, K> function) throws InterruptedException {
         List<RunAndSave<List<? extends T>, K>> parallelCounting = new ArrayList<>(n);
         n = Math.min(n, list.size());
         int c = list.size() / n;
         int r = 0;
+        ArrayList<List<? extends T>> listForMapper = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             if (i == n - 1) {
                 r = list.size() % n;
             }
-            parallelCounting.add(i, new RunAndSave<>(list.subList(c * i, c * (i + 1) + r), function));
+            if (hasMapper) {
+                listForMapper.add(list.subList(c * i, c * (i + 1) + r));
+            } else {
+                parallelCounting.add(i, new RunAndSave<>(list.subList(c * i, c * (i + 1) + r), function));
+            }
         }
-        countInParallelThreads(parallelCounting);
-        return parallelCounting.stream().map(RunAndSave::returnResult).collect(Collectors.toList());
+        if (hasMapper) {
+            return mapper.map(function, listForMapper);
+        } else {
+            countInParallelThreads(parallelCounting);
+            return parallelCounting.stream().map(RunAndSave::returnResult).collect(Collectors.toList());
+        }
     }
 
     /**

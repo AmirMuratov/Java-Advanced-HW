@@ -11,16 +11,17 @@ import java.util.function.Function;
 /**
  * IterativeParallelism was created by amir on 26.03.15.
  */
+
 public class ParallelMapperImpl implements ParallelMapper {
 
     private List<Thread> threads;
     private int numOfThreads;
     private final MyBlockingQueue<ObjectToProcess> queue;
 
-    class  ObjectToProcess<T, K> {
-        int left;
-        int right;
-        Call<T, K> call;
+    class ObjectToProcess<T, K> {
+        public int left;
+        public int right;
+        public Call<T, K> call;
         public ObjectToProcess(int left, int right, Call<T, K> call) {
             this.left = left;
             this.right = right;
@@ -29,28 +30,28 @@ public class ParallelMapperImpl implements ParallelMapper {
     }
 
     class MyBlockingQueue<T> {
-        final Queue<T> queue;
+        final Queue<T> innerQueue;
 
         public MyBlockingQueue() {
-            queue = new ArrayDeque<>();
+            innerQueue = new ArrayDeque<>();
         }
 
-        void add(T element) {
-            synchronized (queue) {
-                queue.add(element);
+        public void add(T element) {
+            synchronized (this) {
+                innerQueue.add(element);
                 queue.notify();
             }
         }
 
-        T pop() {
-            synchronized (queue) {
-                return queue.poll();
+        public T pop() {
+            synchronized (this) {
+                return innerQueue.poll();
             }
         }
 
-        boolean isEmpty() {
-            synchronized (queue) {
-                return queue.isEmpty();
+        public boolean isEmpty() {
+            synchronized (this) {
+                return innerQueue.isEmpty();
             }
         }
     }
@@ -69,12 +70,18 @@ public class ParallelMapperImpl implements ParallelMapper {
             this.data = data;
             this.function = function;
             result = new ArrayList<>(data.size());
+            for (int i = 0; i < data.size(); i++) {
+                result.add(null);
+            }
         }
 
         synchronized public void incProgress(int elements) {
             elementsCounted += elements;
+            //System.err.print("\n" + Thread.currentThread().getId() + " " + id + " ---- " + elementsCounted + " " + data.size() + " " + isDone() + "\n");
             if (isDone()) {
-                this.notify();
+                synchronized (this) {
+                    this.notify();
+                }
             }
         }
 
@@ -96,12 +103,17 @@ public class ParallelMapperImpl implements ParallelMapper {
 
         public void fail() {
             countingInterrupted = true;
+            synchronized (this) {
+                this.notify();
+            }
         }
 
         public boolean failed() {
             return countingInterrupted;
         }
     }
+
+
     class CountingProcess implements Runnable {
         @Override
         public void run() {
@@ -114,17 +126,26 @@ public class ParallelMapperImpl implements ParallelMapper {
                 }
                 if (element != null) {
                     for (int i = element.left; i <= element.right; i++) {
-                        element.call.countI(i);
-                        element.call.incProgress(1);
                         if (Thread.interrupted()) {
+                            element.call.fail();
                             break;
                         }
+                        element.call.countI(i);
+                        element.call.incProgress(1);
+                    }
+                    if (Thread.interrupted()) {
+                        element.call.fail();
+                        break;
                     }
                 } else {
                     try {
-                        queue.wait();
+                        synchronized (queue) {
+                            if (queue.isEmpty()) {
+                                queue.wait();
+                            }
+                        }
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        break;
                     }
                 }
 
@@ -137,7 +158,7 @@ public class ParallelMapperImpl implements ParallelMapper {
         threads = new ArrayList<>(numOfThreads);
         this.numOfThreads = numOfThreads;
         for (int i = 0; i < numOfThreads; i++) {
-            threads.set(i, new Thread(new CountingProcess()));
+            threads.add(new Thread(new CountingProcess()));
         }
         threads.stream().forEach(Thread::start);
     }
@@ -145,21 +166,32 @@ public class ParallelMapperImpl implements ParallelMapper {
     @Override
     public <T, R> List<R> map(Function<? super T, ? extends R> function, List<? extends T> list) throws InterruptedException {
         Call<T, R> currentCall = new Call<>(list, function);
-         int n = Math.max(numOfThreads, list.size());
+         int n = Math.min(numOfThreads, list.size());
         int c = list.size() / n;
         int remainder = 0;
         for (int i = 0; i < n; i++) {
             if (i == n - 1) {
                 remainder = list.size() % n;
             }
+            //System.out.print("\nBorders: " + (i * c) + " - " + ((i + 1) * c - 1 + remainder) + "\n");
             queue.add(new ObjectToProcess<>(i * c, (i + 1) * c - 1 + remainder, currentCall));
         }
-        currentCall.wait();
+        while (!currentCall.isDone()) {
+            synchronized (currentCall) {
+                if (!currentCall.isDone()) {
+                    currentCall.wait();
+                }
+            }
+            if (currentCall.failed()) {
+                throw new InterruptedException();
+            }
+        }
         return currentCall.getResult();
     }
 
     @Override
     public void close() throws InterruptedException {
         threads.stream().forEach(Thread::interrupt);
+
     }
 }

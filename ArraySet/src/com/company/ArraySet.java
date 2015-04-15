@@ -1,24 +1,37 @@
 package com.company;
 
 import java.util.*;
-import java.util.function.BooleanSupplier;
 
 /**
- * Created by Амир on 23.02.2015.
+ * Created by Амир on 12.03.2015.
  */
-public class ArraySet<T> extends AbstractSet<T> implements NavigableSet<T>  {
-
+public class ArraySet<T> extends AbstractSet<T> implements NavigableSet<T> {
     private List<T> data;
     private Comparator<? super T> comparator;
     private boolean naturalOrder;
 
-    public ArraySet() {
-        this(Collections.EMPTY_LIST);
+    public ArraySet(Collection<T> collection, Comparator<? super T> comparator) {
+        this.comparator = comparator;
+        if (collection.isEmpty()) {
+            data = new ReversibleList<>(new ArrayList<>(0), false);
+        } else {
+            ArrayList<T> temp = new ArrayList<>(collection);
+            ArrayList<T> data2 = new ArrayList<>();
+            Collections.sort(temp, comparator);
+            data2.add(temp.get(0));
+            for (int i = 1; i < temp.size(); i++) {
+                if (comparator.compare(data2.get(data2.size() - 1), temp.get(i)) != 0) {
+                    data2.add(temp.get(i));
+                }
+            }
+            data = new ReversibleList<>(data2, false);
+        }
     }
 
-    public ArraySet(Collection<? extends T> data) {
-        this(data, new Comparator<T>() {
+    public ArraySet(Collection<T> collection) {
+        this(collection, new Comparator<T>() {
             @Override
+            @SuppressWarnings("unchecked")
             public int compare(T o1, T o2) {
                 return ((Comparable<T>) o1).compareTo(o2);
             }
@@ -26,80 +39,77 @@ public class ArraySet<T> extends AbstractSet<T> implements NavigableSet<T>  {
         naturalOrder = true;
     }
 
-    public ArraySet(Collection<? extends T> collection, Comparator<? super T> comparator) {
-        ArrayList<T> temp = new ArrayList<T>(collection);
-        Collections.sort(temp, comparator);
-        data = new ArrayList<T>();
-        if (collection.size() != 0) {
-            data.add(temp.get(0));
-        }
-        for (T t : temp) {
-            if (comparator.compare(data.get(data.size() - 1), t) != 0) {
-                data.add(t);
-            }
-        }
-        this.comparator = comparator;
-        naturalOrder = false;
+    public ArraySet() {
+        this(null, true);
     }
 
-    private ArraySet(List<T> collection, Comparator<? super T> comparator, boolean order) {
+    private ArraySet(Comparator<? super T> comparator, boolean naturalOrder) {
+        this.data = new ReversibleList<>(new ArrayList<>(0), false);
         this.comparator = comparator;
-        this.naturalOrder = order;
-        this.data = collection;
+        this.naturalOrder = naturalOrder;
     }
 
-    private int searchT(T t) {
-        return Collections.binarySearch(data, t, comparator);
+    private ArraySet(List<T> list, Comparator<? super T> comparator, boolean naturalOrder) {
+        this.data = list;
+        this.comparator = comparator;
+        this.naturalOrder = naturalOrder;
     }
 
     @Override
     public T lower(T t) {
-        int search = searchT(t);
-        if (search == -1 || search == 0) {
-            return null;
+        int res = Collections.binarySearch(data, t, comparator);
+        if (res < 0) {
+            res = -(res + 1);
         }
-        if (search < 0) {
-            search = -(search + 1);
+        if (res > 0 && res <= data.size()) {
+            return data.get(res - 1);
         }
-        return data.get(search - 1);
+        return null;
     }
 
     @Override
     public T floor(T t) {
-        int search = searchT(t);
-        if (search == -1) {
-            return null;
+        int res = Collections.binarySearch(data, t, comparator);
+        if (res >= 0 && res < data.size()) {
+            return data.get(res);
         }
-        if (search >= 0) {
-            return data.get(search);
-        } else {
-            return data.get(-(search + 1) - 1);
+        if (res < 0) {
+            res = -(res + 1);
         }
+        if (res > 0 && res <= data.size()) {
+            return data.get(res - 1);
+        }
+        return null;
     }
 
     @Override
     public T ceiling(T t) {
-        int search = searchT(t);
-        if (search < 0) {
-            search = -(search + 1);
+        int res = Collections.binarySearch(data, t, comparator);
+        if (res < 0) {
+            res = -(res + 1);
         }
-        if (search == data.size()) {
-            return null;
+        if (res >= 0 && res < data.size()) {
+            return data.get(res);
         }
-        return data.get(search);
+        return null;
     }
 
     @Override
     public T higher(T t) {
-        int search = searchT(t);
-        if (search == data.size() - 1 || search == -data.size() - 1) {
+        int res = Collections.binarySearch(data, t, comparator);
+        if (res + 1 == data.size()) {
             return null;
         }
-        if (search < 0) {
-            return data.get(-(search + 1));
-        } else {
-            return data.get(search + 1);
+        if (res >= 0 && res + 1 < data.size()) {
+            return data.get(res + 1);
         }
+        if (res < 0) {
+            res = -(res + 1);
+        }
+        if (res >= 0 && res < data.size()) {
+            return data.get(res);
+        }
+        return null;
     }
 
     @Override
@@ -108,177 +118,124 @@ public class ArraySet<T> extends AbstractSet<T> implements NavigableSet<T>  {
     }
 
     @Override
-    public boolean isEmpty() {
-        return data.size() == 0;
-    }
-
-    @Override
+    @SuppressWarnings("unchecked")
     public boolean contains(Object o) {
-        if (searchT((T) o) >= 0) {
-            return true;
-        }
-        return false;
+        return Collections.binarySearch(data, (T) o, comparator) >= 0;
     }
-
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            int cur = 0;
+            private int curIndex = 0;
 
             @Override
             public boolean hasNext() {
-                return cur != data.size();
+                return curIndex < data.size();
             }
 
             @Override
             public T next() {
-                if (cur == data.size()) {
-                    return null;
-                }
-                return data.get(cur++);
+                return data.get(curIndex++);
             }
         };
-    }
-
-    @Override
-    public Object[] toArray() {
-        return data.toArray();
-    }
-
-    @Override
-    public <T1> T1[] toArray(T1[] a) {
-        for (int i = 0; i < Math.min(data.size(), a.length); i++) {
-            a[i] = (T1) data.get(i);
-        }
-        return a;
-    }
-
-    @Override
-    public boolean add(T t) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        for (Object t : c) {
-            if (!contains(t)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean addAll(Collection<? extends T> c) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void clear() {
-        throw new UnsupportedOperationException();
     }
 
     @Override
     public NavigableSet<T> descendingSet() {
-        ArraySet<T> set = new ArraySet<T>();
-        for (int i = data.size() - 1; i > 0; i--) {
-            set.data.add(data.get(i));
-        }
-        set.comparator = new Comparator<T>() {
-            @Override
-            public int compare(T o1, T o2) {
-                return -comparator.compare(o1, o2);
-            }
-        };
-        return set;
+        List<T> data2 = new ReversibleList<>(data, true);
+        return new ArraySet<>(data2, comparator);
     }
 
     @Override
     public Iterator<T> descendingIterator() {
         return new Iterator<T>() {
-            int cur = data.size() - 1;
+            private int curIndex = data.size();
 
             @Override
             public boolean hasNext() {
-                return cur != -1;
+                return curIndex > 0;
             }
 
             @Override
             public T next() {
-                if (cur == -1) {
-                    return null;
-                }
-                return data.get(cur--);
+                return data.get(--curIndex);
             }
         };
     }
 
     @Override
     public NavigableSet<T> subSet(T fromElement, boolean fromInclusive, T toElement, boolean toInclusive) {
-        int from = searchT(fromElement);
-        int to = searchT(toElement);
-        if (from >= 0 && !fromInclusive) {
-            from++;
+        if (fromElement == null || toElement == null) {
+            throw new NullPointerException();
         }
-        if (to >= 0 && !toInclusive) {
-            to--;
+        if (comparator.compare(fromElement, toElement) > 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int from = Collections.binarySearch(data, fromElement, comparator);
+        int to = Collections.binarySearch(data, toElement, comparator);
+
+        if (from >= 0 && from < data.size()) {
+            if (!fromInclusive) {
+                ++from;
+            }
         }
         if (from < 0) {
             from = -(from + 1);
         }
-        if (to < 0) {
-            to = -(to + 1) - 1;
+
+        if (to >= 0 && to < data.size()) {
+            if (!toInclusive) {
+                --to;
+            }
         }
-        return new ArraySet<T>(data.subList(from, to + 1), comparator, naturalOrder);
+        if (to < 0) {
+            to = -(to + 1);
+            --to;
+        }
+
+        return new ArraySet<>(data.subList(from, Math.max(to + 1, from)), comparator, naturalOrder);
     }
 
     @Override
     public NavigableSet<T> headSet(T toElement, boolean inclusive) {
-        return subSet(this.first(), true, toElement, inclusive);
+        if (isEmpty() || comparator.compare(first(), toElement) > 0) {
+            return new ArraySet<>(comparator, naturalOrder);
+        }
+
+        return subSet(first(), true, toElement, inclusive);
     }
 
     @Override
     public NavigableSet<T> tailSet(T fromElement, boolean inclusive) {
-        return subSet(fromElement, inclusive, this.last(), true);
+        if (isEmpty() || comparator.compare(fromElement, last()) > 0) {
+            return new ArraySet<>(comparator, naturalOrder);
+        }
+        return subSet(fromElement, inclusive, last(), true);
     }
 
     @Override
     public Comparator<? super T> comparator() {
         if (naturalOrder) {
             return null;
+        } else {
+            return comparator;
         }
-        return comparator;
     }
 
     @Override
     public SortedSet<T> subSet(T fromElement, T toElement) {
-        return subSet(fromElement, true, toElement, true);
+        return subSet(fromElement, true, toElement, false);
     }
 
     @Override
     public SortedSet<T> headSet(T toElement) {
-        return subSet(this.first(), true, toElement, true);
+        return headSet(toElement, false);
     }
 
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        return subSet(fromElement, true, this.last(), true);
+        return tailSet(fromElement, true);
     }
 
     @Override
@@ -296,4 +253,15 @@ public class ArraySet<T> extends AbstractSet<T> implements NavigableSet<T>  {
         }
         return data.get(data.size() - 1);
     }
+
+    @Override
+    public T pollFirst() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public T pollLast() {
+        throw new UnsupportedOperationException();
+    }
+
 }
