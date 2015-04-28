@@ -154,44 +154,44 @@ public class ParallelMapperImpl implements ParallelMapper {
     }
 
     public ParallelMapperImpl(int numOfThreads) {
-        queue = new MyBlockingQueue<>();
-        threads = new ArrayList<>(numOfThreads);
-        this.numOfThreads = numOfThreads;
-        for (int i = 0; i < numOfThreads; i++) {
-            threads.add(new Thread(new CountingProcess()));
-        }
-        threads.stream().forEach(Thread::start);
-    }
-
-    @Override
-    public <T, R> List<R> map(Function<? super T, ? extends R> function, List<? extends T> list) throws InterruptedException {
-        Call<T, R> currentCall = new Call<>(list, function);
-         int n = Math.min(numOfThreads, list.size());
-        int c = list.size() / n;
-        int remainder = 0;
-        for (int i = 0; i < n; i++) {
-            if (i == n - 1) {
-                remainder = list.size() % n;
+            queue = new MyBlockingQueue<>();
+            threads = new ArrayList<>(numOfThreads);
+            this.numOfThreads = numOfThreads;
+            for (int i = 0; i < numOfThreads; i++) {
+                threads.add(new Thread(new CountingProcess()));
             }
-            //System.out.print("\nBorders: " + (i * c) + " - " + ((i + 1) * c - 1 + remainder) + "\n");
-            queue.add(new ObjectToProcess<>(i * c, (i + 1) * c - 1 + remainder, currentCall));
+            threads.stream().forEach(Thread::start);
         }
-        while (!currentCall.isDone()) {
-            synchronized (currentCall) {
-                if (!currentCall.isDone()) {
-                    currentCall.wait();
+
+        @Override
+        public <T, R> List<R> map(Function<? super T, ? extends R> function, List<? extends T> list) throws InterruptedException {
+            Call<T, R> currentCall = new Call<>(list, function);
+            int n = Math.min(numOfThreads, list.size());
+            int c = list.size() / n;
+            int remainder = 0;
+            for (int i = 0; i < n; i++) {
+                if (i == n - 1) {
+                    remainder = list.size() % n;
+                }
+                //System.out.print("\nBorders: " + (i * c) + " - " + ((i + 1) * c - 1 + remainder) + "\n");
+                queue.add(new ObjectToProcess<>(i * c, (i + 1) * c - 1 + remainder, currentCall));
+            }
+            while (!currentCall.isDone()) {
+                synchronized (currentCall) {
+                    if (!currentCall.isDone()) {
+                        currentCall.wait();
+                    }
+                }
+                if (currentCall.failed()) {
+                    throw new InterruptedException();
                 }
             }
-            if (currentCall.failed()) {
-                throw new InterruptedException();
-            }
+            return currentCall.getResult();
         }
-        return currentCall.getResult();
-    }
 
-    @Override
-    public void close() throws InterruptedException {
-        threads.stream().forEach(Thread::interrupt);
+        @Override
+        public void close() throws InterruptedException {
+            threads.stream().forEach(Thread::interrupt);
 
     }
 }
