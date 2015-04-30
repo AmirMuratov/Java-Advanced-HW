@@ -1,0 +1,2 @@
+#!/bin/bash
+java -cp /home/amir/Documents/JavaHW/java-advanced-2015/artifacts/HelloUDPTest.jar:/home/amir/Documents/JavaHW/java-advanced-2015/lib/hamcrest-core-1.3.jar:/home/amir/Documents/JavaHW/java-advanced-2015/lib/jsoup-1.8.1.jar:/home/amir/Documents/JavaHW/java-advanced-2015/lib/quickcheck-0.6.jar:/home/amir/Documents/JavaHW/java-advanced-2015/lib/junit-4.11.jar:/home/amir/Documents/JavaHW/Java-Advanced-HW/HelloUDP/out/production/HelloUDP info.kgeorgiy.java.advanced.hello.Tester client ru.ifmo.ctddev.muratov.helloudp.HelloUDPClient
